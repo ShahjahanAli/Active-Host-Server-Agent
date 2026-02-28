@@ -1,6 +1,6 @@
-# rsm-agent
+# Active-Host-Server-Agent
 
-> Lightweight host agent for [Remote Server Manager](https://github.com/your-org/remoteservermanager).  
+> Lightweight host agent for [Remote Server Manager](https://github.com/ShahjahanAli/Active-Host).  
 > Polls for commands, executes them, and pushes system metrics back to the RSM control plane.
 
 ---
@@ -10,25 +10,25 @@
 ### Option A — npm (recommended, no clone needed)
 
 ```bash
-npm install -g rsm-agent
+npm install -g Active-Host-Server-Agent
 ```
 
 ### Option B — Docker
 
 ```bash
 docker run -d \
-  --name rsm-agent \
+  --name Active-Host-Server-Agent \
   --restart unless-stopped \
   --network host \
-  --env-file /etc/rsm-agent/.env \
-  ghcr.io/your-org/rsm-agent:latest
+  --env-file /etc/Active-Host-Server-Agent/.env \
+  ghcr.io/your-org/Active-Host-Server-Agent:latest
 ```
 
 ### Option C — Clone & build
 
 ```bash
-git clone https://github.com/your-org/rsm-agent.git /opt/rsm-agent
-cd /opt/rsm-agent
+https://github.com/ShahjahanAli/Active-Host-Server-Agent.git /opt/Active-Host-Server-Agent
+cd /opt/Active-Host-Server-Agent
 npm install
 npm run build        # compiles TypeScript → dist/
 ```
@@ -50,8 +50,8 @@ npm run build        # compiles TypeScript → dist/
 Copy `.env.example` to `.env` and fill in the values:
 
 ```bash
-cp $(npm root -g)/rsm-agent/.env.example /etc/rsm-agent/.env
-nano /etc/rsm-agent/.env
+cp $(npm root -g)/Active-Host-Server-Agent/.env.example /etc/Active-Host-Server-Agent/.env
+nano /etc/Active-Host-Server-Agent/.env
 ```
 
 | Variable | Required | Description |
@@ -70,13 +70,13 @@ nano /etc/rsm-agent/.env
 
 ```bash
 # With npm global install
-rsm-agent
+Active-Host-Server-Agent
 
 # With .env in a custom location
-NODE_ENV=production dotenv -e /etc/rsm-agent/.env rsm-agent
+NODE_ENV=production dotenv -e /etc/Active-Host-Server-Agent/.env Active-Host-Server-Agent
 
 # Direct node (any install method)
-node /opt/rsm-agent/dist/index.js
+node /opt/Active-Host-Server-Agent/dist/index.js
 ```
 
 ---
@@ -84,12 +84,12 @@ node /opt/rsm-agent/dist/index.js
 ## Install as a systemd service (Linux)
 
 ```bash
-sudo mkdir -p /etc/rsm-agent
-sudo cp .env.example /etc/rsm-agent/.env
-sudo nano /etc/rsm-agent/.env          # fill in values
+sudo mkdir -p /etc/Active-Host-Server-Agent
+sudo cp .env.example /etc/Active-Host-Server-Agent/.env
+sudo nano /etc/Active-Host-Server-Agent/.env          # fill in values
 ```
 
-Create `/etc/systemd/system/rsm-agent.service`:
+Create `/etc/systemd/system/Active-Host-Server-Agent.service`:
 
 ```ini
 [Unit]
@@ -99,8 +99,8 @@ After=network.target
 [Service]
 Type=simple
 User=root
-EnvironmentFile=/etc/rsm-agent/.env
-ExecStart=/usr/bin/rsm-agent
+EnvironmentFile=/etc/Active-Host-Server-Agent/.env
+ExecStart=/usr/bin/Active-Host-Server-Agent
 Restart=on-failure
 RestartSec=10
 StandardOutput=journal
@@ -112,8 +112,8 @@ WantedBy=multi-user.target
 
 ```bash
 sudo systemctl daemon-reload
-sudo systemctl enable --now rsm-agent
-sudo journalctl -u rsm-agent -f        # live logs
+sudo systemctl enable --now Active-Host-Server-Agent
+sudo journalctl -u Active-Host-Server-Agent -f        # live logs
 ```
 
 ---
@@ -193,7 +193,7 @@ MIT
 
 ### Linux (systemd)
 
-Create `/etc/systemd/system/rsm-agent.service`:
+Create `/etc/systemd/system/Active-Host-Server-Agent.service`:
 
 ```ini
 [Unit]
@@ -215,8 +215,8 @@ Then run:
 
 ```bash
 sudo systemctl daemon-reload
-sudo systemctl enable rsm-agent
-sudo systemctl start rsm-agent
+sudo systemctl enable Active-Host-Server-Agent
+sudo systemctl start Active-Host-Server-Agent
 ```
 
 ### Windows (Task Scheduler or NSSM)
